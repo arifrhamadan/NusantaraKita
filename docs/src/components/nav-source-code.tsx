@@ -1,9 +1,17 @@
-"use client";
+'use client';
 
-import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
-import { FaGithub } from "react-icons/fa";
-import { cn } from "@/lib/utils";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
+import { FaGithub } from 'react-icons/fa';
 
 export function NavSourceCode() {
   const { open } = useSidebar();
@@ -13,16 +21,28 @@ export function NavSourceCode() {
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <a href="https://github.com/Yuefii/nusantarakita" target="_blank" rel="noopener noreferrer" className="block w-full">
+            <a
+              href="https://github.com/Yuefii/nusantarakita"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full"
+            >
               <SidebarMenuButton
                 size="lg"
-                className="bg-sidebar-primary  hover:bg-sidebar-primary/80 text-white  active:bg-sidebar-primary/80 hover:text-white cursor-pointer"
+                className="bg-sidebar-primary hover:bg-sidebar-primary/80 active:bg-sidebar-primary/80 cursor-pointer text-white hover:text-white"
               >
-                <div className="flex items-center justify-center text-center gap-3 text-white flex-1">
-                  <span className="font-medium text-2xl truncate">
+                <div className="flex flex-1 items-center justify-center gap-3 text-center text-white">
+                  <span className="truncate text-2xl font-medium">
                     <FaGithub />
                   </span>
-                  <span className={cn("text-sm truncate transition-all", !open && "hidden")}>SOURCE CODE</span>
+                  <span
+                    className={cn(
+                      'truncate text-sm transition-all',
+                      !open && 'hidden',
+                    )}
+                  >
+                    SOURCE CODE
+                  </span>
                 </div>
               </SidebarMenuButton>
             </a>

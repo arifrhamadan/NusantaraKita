@@ -1,5 +1,5 @@
-import type { ResponseJsonListItem } from "./response-json-structure";
-import ResponseJsonStructure from "./response-json-structure";
+import type { ResponseJsonListItem } from './response-json-structure';
+import ResponseJsonStructure from './response-json-structure';
 
 interface ResponseSuccessProps {
   items: ResponseJsonListItem[];
@@ -8,11 +8,13 @@ interface ResponseSuccessProps {
 const ResponseSuccess: React.FC<ResponseSuccessProps> = ({ items }) => {
   return (
     <div className="py-4">
-      <h3 className="text-2xl font-semibold mb-4 text-gray-700">Response (Success)</h3>
-      <p className="text-sm text-gray-600 mb-1">
+      <h3 className="mb-4 text-2xl font-semibold text-gray-700">
+        Response (Success)
+      </h3>
+      <p className="mb-1 text-sm text-gray-600">
         <span className="font-medium">Format:</span> JSON
       </p>
-      <p className="text-sm text-gray-600 mb-3">
+      <p className="mb-3 text-sm text-gray-600">
         <span className="font-medium">Struktur:</span>
       </p>
       <div className="pl-1">

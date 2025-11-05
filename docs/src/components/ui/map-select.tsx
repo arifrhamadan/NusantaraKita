@@ -1,7 +1,13 @@
-"use client";
+'use client';
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader2 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Loader2 } from 'lucide-react';
 
 interface MapSelectProps<T> {
   data: T[];
@@ -22,7 +28,7 @@ export function MapSelect<T>({
   data,
   selectedValue,
   onSelect,
-  placeholder = "Pilih Data",
+  placeholder = 'Pilih Data',
   getLabel,
   getValue,
   disabled,
@@ -34,9 +40,11 @@ export function MapSelect<T>({
 }: MapSelectProps<T>) {
   return (
     <Select
-      value={selectedValue ? String(getValue(selectedValue)) : ""}
+      value={selectedValue ? String(getValue(selectedValue)) : ''}
       onValueChange={(value) => {
-        const selectedItem = data.find((item) => String(getValue(item)) === value);
+        const selectedItem = data.find(
+          (item) => String(getValue(item)) === value,
+        );
         if (selectedItem) {
           onSelect(selectedItem);
         }
@@ -45,15 +53,25 @@ export function MapSelect<T>({
         if (open && onOpen) onOpen();
       }}
     >
-      <SelectTrigger className="w-full cursor-pointer" disabled={disabled}>
+      <SelectTrigger
+        className="w-full cursor-pointer"
+        disabled={disabled}
+      >
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
 
       <SelectContent>
         <div
           onScroll={(e) => {
-            const bottomReached = e.currentTarget.scrollTop + e.currentTarget.clientHeight >= e.currentTarget.scrollHeight - 10;
-            if (bottomReached && hasNextPage && !isFetchingNextPage && onReachEnd) {
+            const bottomReached =
+              e.currentTarget.scrollTop + e.currentTarget.clientHeight >=
+              e.currentTarget.scrollHeight - 10;
+            if (
+              bottomReached &&
+              hasNextPage &&
+              !isFetchingNextPage &&
+              onReachEnd
+            ) {
               onReachEnd();
             }
           }}
@@ -64,13 +82,19 @@ export function MapSelect<T>({
               <Loader2 className="h-5 w-5 animate-spin text-gray-500" />
             </div>
           ) : data.length === 0 ? (
-            <SelectItem value="kosong" disabled>
+            <SelectItem
+              value="kosong"
+              disabled
+            >
               Data kosong
             </SelectItem>
           ) : (
             <>
               {data.map((item) => (
-                <SelectItem key={getValue(item)} value={String(getValue(item))}>
+                <SelectItem
+                  key={getValue(item)}
+                  value={String(getValue(item))}
+                >
                   {getLabel(item)}
                 </SelectItem>
               ))}

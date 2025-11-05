@@ -1,96 +1,96 @@
-import Code from "@/components/ui/code";
-import EndpointUrl from "@/components/ui/endpoint-url";
-import { Notes, type NotesProps } from "@/components/ui/notes";
-import TableWithTitle from "@/components/ui/query-table-parameters";
-import type { ResponseJsonListItem } from "@/components/ui/response-json-structure";
-import ResponseSuccess from "@/components/ui/response-success";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useIsTablet } from "@/hooks/use-tablet";
-import { cn } from "@/lib/utils";
+import Code from '@/components/ui/code';
+import EndpointUrl from '@/components/ui/endpoint-url';
+import { Notes, type NotesProps } from '@/components/ui/notes';
+import TableWithTitle from '@/components/ui/query-table-parameters';
+import type { ResponseJsonListItem } from '@/components/ui/response-json-structure';
+import ResponseSuccess from '@/components/ui/response-success';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { useIsTablet } from '@/hooks/use-tablet';
+import { cn } from '@/lib/utils';
 
 export const queryTableHeaders = [
-  "Parameter",
-  "Type",
-  "Description",
-  "Default",
+  'Parameter',
+  'Type',
+  'Description',
+  'Default',
 ];
-const errorHandlingTableHeaders = ["Code", "Description", "Example"];
+const errorHandlingTableHeaders = ['Code', 'Description', 'Example'];
 
 export const queryTableRows = [
   {
-    Parameter: "pagination",
-    Type: "boolean",
-    Description: "Menampilkan/menyembunyikan informasi paginasi (true/false)",
-    Default: "true",
+    Parameter: 'pagination',
+    Type: 'boolean',
+    Description: 'Menampilkan/menyembunyikan informasi paginasi (true/false)',
+    Default: 'true',
   },
   {
-    Parameter: "limit",
-    Type: "integer",
-    Description: "Menentukan jumlah item per halaman",
-    Default: "10",
+    Parameter: 'limit',
+    Type: 'integer',
+    Description: 'Menentukan jumlah item per halaman',
+    Default: '10',
   },
   {
-    Parameter: "halaman",
-    Type: "integer",
-    Description: "Menentukan halaman yang ingin ditampilkan",
-    Default: "1",
+    Parameter: 'halaman',
+    Type: 'integer',
+    Description: 'Menentukan halaman yang ingin ditampilkan',
+    Default: '1',
   },
 ];
 
 const errorHandlingTableRows = [
   {
-    Code: "400",
-    Description: "Parameter tidak valid",
+    Code: '400',
+    Description: 'Parameter tidak valid',
     Example: JSON.stringify(
-      { error: "nomor halaman tidak valid, halaman harus lebih besar dari 0" },
+      { error: 'nomor halaman tidak valid, halaman harus lebih besar dari 0' },
       null,
-      2
+      2,
     ),
   },
   {
-    Code: "404",
-    Description: "Data tidak ditemukan",
-    Example: JSON.stringify({ error: "tidak ditemukan data" }, null, 2),
+    Code: '404',
+    Description: 'Data tidak ditemukan',
+    Example: JSON.stringify({ error: 'tidak ditemukan data' }, null, 2),
   },
   {
-    Code: "500",
-    Description: "Server Error",
+    Code: '500',
+    Description: 'Server Error',
     Example: JSON.stringify(
-      { error: "Gagal mengambil data: [error detail]" },
+      { error: 'Gagal mengambil data: [error detail]' },
       null,
-      2
+      2,
     ),
   },
 ];
 
 const getProvinsiResponseStructureData: ResponseJsonListItem[] = [
   {
-    name: "pagination",
-    details: "(object) - Hanya muncul jika pagination=true :",
+    name: 'pagination',
+    details: '(object) - Hanya muncul jika pagination=true :',
     children: [
-      { name: "total_item", details: "(integer) - Total seluruh provinsi" },
+      { name: 'total_item', details: '(integer) - Total seluruh provinsi' },
       {
-        name: "total_halaman",
-        details: "(integer) - Total halaman berdasarkan limit",
+        name: 'total_halaman',
+        details: '(integer) - Total halaman berdasarkan limit',
       },
       {
-        name: "halaman_saat_ini",
-        details: "(integer) - Halaman yang sedang diakses",
+        name: 'halaman_saat_ini',
+        details: '(integer) - Halaman yang sedang diakses',
       },
       {
-        name: "ukuran_halaman",
-        details: "(integer) - Jumlah item per halaman",
+        name: 'ukuran_halaman',
+        details: '(integer) - Jumlah item per halaman',
       },
     ],
   },
   {
-    name: "data",
-    details: "(array) - Daftar provinsi:",
+    name: 'data',
+    details: '(array) - Daftar provinsi:',
     children: [
-      { name: "kode", details: "(string) - Kode unik provinsi" },
-      { name: "nama", details: "(string) - Nama provinsi" },
-      { name: "lat", details: "(double) - Koordinat latitude" },
-      { name: "lng", details: "(double) - Koordinat longitude" },
+      { name: 'kode', details: '(string) - Kode unik provinsi' },
+      { name: 'nama', details: '(string) - Nama provinsi' },
+      { name: 'lat', details: '(double) - Koordinat latitude' },
+      { name: 'lng', details: '(double) - Koordinat longitude' },
     ],
   },
 ];
@@ -104,8 +104,8 @@ const responseExampleDefault = {
   },
   data: [
     {
-      kode: "11",
-      nama: "Aceh",
+      kode: '11',
+      nama: 'Aceh',
       lat: 4.225728583038235,
       lng: 96.91187408609952,
     },
@@ -115,21 +115,21 @@ const responseExampleDefault = {
 const responseExampleWithPagination = {
   data: [
     {
-      kode: "11",
-      nama: "Aceh",
+      kode: '11',
+      nama: 'Aceh',
       lat: 4.225728583038235,
       lng: 96.91187408609952,
     },
   ],
 };
 
-const notesItems: NotesProps["items"] = [
+const notesItems: NotesProps['items'] = [
   <>
-    Jika <code className="bg-gray-300 px-1 rounded">pagination=false</code>,
-    field <code className="bg-gray-100 px-1 rounded">pagination</code> tidak
+    Jika <code className="rounded bg-gray-300 px-1">pagination=false</code>,
+    field <code className="rounded bg-gray-100 px-1">pagination</code> tidak
     akan muncul di response
   </>,
-  "Parameter dapat digabungkan sesuai kebutuhan",
+  'Parameter dapat digabungkan sesuai kebutuhan',
 ];
 
 export const GetProvinsi = () => {
@@ -139,17 +139,17 @@ export const GetProvinsi = () => {
 
   return (
     <section
-      className={cn("bg-white text-gray-800 max-w-5xl", {
-        "p-5": isSmallScreen,
-        "p-8": !isSmallScreen,
+      className={cn('max-w-5xl bg-white text-gray-800', {
+        'p-5': isSmallScreen,
+        'p-8': !isSmallScreen,
       })}
     >
-      <h1 className="text-3xl font-bold mb-10 text-gray-700">
+      <h1 className="mb-10 text-3xl font-bold text-gray-700">
         API Documentation - GET Provinsi
       </h1>
 
       <div className="mb-10">
-        <h2 className="text-xl font-semibold mb-4 text-gray-600">
+        <h2 className="mb-4 text-xl font-semibold text-gray-600">
           Endpoint API
         </h2>
         <EndpointUrl
@@ -159,10 +159,10 @@ export const GetProvinsi = () => {
       </div>
 
       <div className="mb-10">
-        <h2 className="text-xl font-semibold mb-4 text-gray-600">
+        <h2 className="mb-4 text-xl font-semibold text-gray-600">
           Description
         </h2>
-        <p className="text-gray-600 leading-relaxed">
+        <p className="leading-relaxed text-gray-600">
           API ini digunakan untuk mendapatkan daftar provinsi beserta informasi
           geografisnya. Response akan menampilkan data provinsi dengan paginasi
           default, tetapi dapat dimodifikasi melalui parameter query.
@@ -178,12 +178,12 @@ export const GetProvinsi = () => {
       </div>
 
       <div className="mb-10">
-        <h2 className="text-2xl font-semibold mb-6 text-gray-700">
+        <h2 className="mb-6 text-2xl font-semibold text-gray-700">
           Example Requests
         </h2>
 
         <div className="mb-6">
-          <h3 className="text-lg font-medium mb-2 text-gray-600">
+          <h3 className="mb-2 text-lg font-medium text-gray-600">
             Default (dengan paginasi)
           </h3>
           <EndpointUrl
@@ -193,7 +193,7 @@ export const GetProvinsi = () => {
         </div>
 
         <div className="mb-6">
-          <h3 className="text-lg font-medium mb-2 text-gray-600">
+          <h3 className="mb-2 text-lg font-medium text-gray-600">
             Tanpa paginasi
           </h3>
           <EndpointUrl
@@ -203,7 +203,7 @@ export const GetProvinsi = () => {
         </div>
 
         <div className="mb-6">
-          <h3 className="text-lg font-medium mb-2 text-gray-600">
+          <h3 className="mb-2 text-lg font-medium text-gray-600">
             Custom limit per halaman
           </h3>
           <EndpointUrl
@@ -213,7 +213,7 @@ export const GetProvinsi = () => {
         </div>
 
         <div className="mb-6">
-          <h3 className="text-lg font-medium mb-2 text-gray-600">
+          <h3 className="mb-2 text-lg font-medium text-gray-600">
             Menuju halaman tertentu
           </h3>
           <EndpointUrl
@@ -223,7 +223,7 @@ export const GetProvinsi = () => {
         </div>
 
         <div className="mb-6">
-          <h3 className="text-lg font-medium mb-2 text-gray-600">
+          <h3 className="mb-2 text-lg font-medium text-gray-600">
             Gabungan parameter
           </h3>
           <EndpointUrl
@@ -238,7 +238,7 @@ export const GetProvinsi = () => {
       </div>
 
       <div className="mb-10">
-        <h3 className="text-base font-semibold mb-4 text-gray-700">
+        <h3 className="mb-4 text-base font-semibold text-gray-700">
           Example Response (Default):
         </h3>
         <Code
@@ -248,7 +248,7 @@ export const GetProvinsi = () => {
       </div>
 
       <div className="mb-10">
-        <h3 className="text-base font-semibold mb-4 text-gray-700">
+        <h3 className="mb-4 text-base font-semibold text-gray-700">
           Example Response (Without Pagination):
         </h3>
         <Code

@@ -1,35 +1,41 @@
-import React, { useState, useMemo } from "react";
-import { TbCopy, TbCopyCheck, TbCopyCheckFilled } from "react-icons/tb";
-import { Button } from "./button";
+import React, { useMemo, useState } from 'react';
+import { TbCopy, TbCopyCheck, TbCopyCheckFilled } from 'react-icons/tb';
+import { Button } from './button';
 
 interface EndpointUrlProps {
-  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   url: string;
   showCopyButton?: boolean;
 }
 
-const EndpointUrl: React.FC<EndpointUrlProps> = ({ method, url, showCopyButton = true }) => {
-  const [copyButtonIcon, setCopyButtonIcon] = useState<"COPY" | "COPIED" | "FAILED">("COPY");
+const EndpointUrl: React.FC<EndpointUrlProps> = ({
+  method,
+  url,
+  showCopyButton = true,
+}) => {
+  const [copyButtonIcon, setCopyButtonIcon] = useState<
+    'COPY' | 'COPIED' | 'FAILED'
+  >('COPY');
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(url);
-      setCopyButtonIcon("COPIED");
-      setTimeout(() => setCopyButtonIcon("COPY"), 2000);
+      setCopyButtonIcon('COPIED');
+      setTimeout(() => setCopyButtonIcon('COPY'), 2000);
     } catch (err) {
-      console.error("Failed to copy URL: ", err);
-      setCopyButtonIcon("FAILED");
-      setTimeout(() => setCopyButtonIcon("COPY"), 2000);
+      console.error('Failed to copy URL: ', err);
+      setCopyButtonIcon('FAILED');
+      setTimeout(() => setCopyButtonIcon('COPY'), 2000);
     }
   };
 
   const renderCopyButtonIcon = useMemo(() => {
     switch (copyButtonIcon) {
-      case "COPY":
+      case 'COPY':
         return <TbCopy />;
-      case "COPIED":
+      case 'COPIED':
         return <TbCopyCheck />;
-      case "FAILED":
+      case 'FAILED':
         return <TbCopyCheckFilled />;
       default:
         return <TbCopy />;
@@ -38,18 +44,18 @@ const EndpointUrl: React.FC<EndpointUrlProps> = ({ method, url, showCopyButton =
 
   const getMethodTextColorClass = (httpMethod: string): string => {
     switch (httpMethod) {
-      case "GET":
-        return "text-[#28a745]";
-      case "POST":
-        return "text-[#007bff]";
-      case "PUT":
-        return "text-[#ffc107]";
-      case "DELETE":
-        return "text-[#dc3545]";
-      case "PATCH":
-        return "text-[#fd7e14]";
+      case 'GET':
+        return 'text-[#28a745]';
+      case 'POST':
+        return 'text-[#007bff]';
+      case 'PUT':
+        return 'text-[#ffc107]';
+      case 'DELETE':
+        return 'text-[#dc3545]';
+      case 'PATCH':
+        return 'text-[#fd7e14]';
       default:
-        return "text-[#6c757d]";
+        return 'text-[#6c757d]';
     }
   };
 
@@ -65,12 +71,16 @@ const EndpointUrl: React.FC<EndpointUrlProps> = ({ method, url, showCopyButton =
   `;
 
   return (
-    <div className={componentClasses.trim().replace(/\s+/g, " ")}>
+    <div className={componentClasses.trim().replace(/\s+/g, ' ')}>
       <span className={methodClasses}>{method}</span>
       <code className="mr-2 line-clamp-1">{url}</code>
 
       {showCopyButton && (
-        <Button onClick={handleCopy} className="ml-auto flex items-center justify-center cursor-pointer p-1" aria-label="Copy endpoint URL">
+        <Button
+          onClick={handleCopy}
+          className="ml-auto flex cursor-pointer items-center justify-center p-1"
+          aria-label="Copy endpoint URL"
+        >
           {renderCopyButtonIcon}
         </Button>
       )}

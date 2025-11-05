@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import AppPagination, { SkeletonPagination } from "../../ui/app-pagination";
+import { useMemo } from 'react';
+import AppPagination, { SkeletonPagination } from '../../ui/app-pagination';
 
 interface PaginationProps {
   data: KabKotaApiRes | undefined;
@@ -7,7 +7,11 @@ interface PaginationProps {
   isPending: boolean;
 }
 
-export const KabupatenKotaPagination = ({ data, isLoading, isPending }: PaginationProps) => {
+export const KabupatenKotaPagination = ({
+  data,
+  isLoading,
+  isPending,
+}: PaginationProps) => {
   const isShowPagination = data?.pagination;
 
   const renderPagination = useMemo(() => {
@@ -17,7 +21,12 @@ export const KabupatenKotaPagination = ({ data, isLoading, isPending }: Paginati
     if (!data.pagination) return null;
 
     if (isShowPagination) {
-      return <AppPagination currentPage={data.pagination.halaman_saat_ini} totalPages={data.pagination.total_halaman} />;
+      return (
+        <AppPagination
+          currentPage={data.pagination.halaman_saat_ini}
+          totalPages={data.pagination.total_halaman}
+        />
+      );
     }
 
     return null;
