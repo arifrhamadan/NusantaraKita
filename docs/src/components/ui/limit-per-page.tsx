@@ -1,5 +1,11 @@
-import useParams from "@/hooks/use-params";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
+import useParams from '@/hooks/use-params';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './select';
 
 export const LIMI_PER_PAGE = [5, 10, 20, 30, 40, 50];
 
@@ -20,7 +26,10 @@ export default function LimitPerPage() {
         </SelectTrigger>
         <SelectContent>
           {LIMI_PER_PAGE.map((limit) => (
-            <SelectItem key={limit} value={limit.toString()}>
+            <SelectItem
+              key={limit}
+              value={limit.toString()}
+            >
               {limit}
             </SelectItem>
           ))}

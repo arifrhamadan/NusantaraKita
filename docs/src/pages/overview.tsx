@@ -1,12 +1,12 @@
-import OverviewDescription from "@/components/overview/overview-description";
-import OverviewMap from "@/components/overview/overview-map";
-import OverViewSelects from "@/components/overview/overview-selects";
-import EndpointUrl from "@/components/ui/endpoint-url";
-import { useOverview } from "@/context/overview-provider";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useIsTablet } from "@/hooks/use-tablet";
-import { cn } from "@/lib/utils";
-import "leaflet/dist/leaflet.css";
+import OverviewDescription from '@/components/overview/overview-description';
+import OverviewMap from '@/components/overview/overview-map';
+import OverViewSelects from '@/components/overview/overview-selects';
+import EndpointUrl from '@/components/ui/endpoint-url';
+import { useOverview } from '@/context/overview-provider';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { useIsTablet } from '@/hooks/use-tablet';
+import { cn } from '@/lib/utils';
+import 'leaflet/dist/leaflet.css';
 
 const Overview = () => {
   const { state } = useOverview();
@@ -16,12 +16,12 @@ const Overview = () => {
 
   return (
     <section
-      className={cn("bg-white text-gray-800 max-w-5xl", {
-        "p-5": isSmallScreen,
-        "p-8": !isSmallScreen,
+      className={cn('max-w-5xl bg-white text-gray-800', {
+        'p-5': isSmallScreen,
+        'p-8': !isSmallScreen,
       })}
     >
-      <h1 className="text-3xl font-bold mb-10 text-gray-700">Overview</h1>
+      <h1 className="mb-10 text-3xl font-bold text-gray-700">Overview</h1>
 
       <div className="mb-10">
         <OverviewDescription

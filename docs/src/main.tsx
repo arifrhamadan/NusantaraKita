@@ -1,14 +1,14 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { RouterProvider } from "react-router";
-import { ResponseTypeProvider } from "./components/ui/response-type.tsx";
-import ReactQueryProvider from "./context/react-query-provider.tsx";
-import "./index.css";
-import { routers } from "./routes/routes.ts";
-import { OverviewProvider } from "./context/overview-provider.tsx";
-import { FixLeafletIcons } from "./components/ui/fix-leaflet-icon.tsx";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { RouterProvider } from 'react-router';
+import { FixLeafletIcons } from './components/ui/fix-leaflet-icon.tsx';
+import { ResponseTypeProvider } from './components/ui/response-type.tsx';
+import { OverviewProvider } from './context/overview-provider.tsx';
+import ReactQueryProvider from './context/react-query-provider.tsx';
+import './index.css';
+import { routers } from './routes/routes.ts';
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ReactQueryProvider>
       <ResponseTypeProvider>
@@ -18,5 +18,5 @@ createRoot(document.getElementById("root")!).render(
         </OverviewProvider>
       </ResponseTypeProvider>
     </ReactQueryProvider>
-  </StrictMode>
+  </StrictMode>,
 );

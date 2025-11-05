@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Pagination,
@@ -8,19 +8,24 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
-import { useIsMobile } from "@/hooks/use-mobile";
-import useParams from "@/hooks/use-params";
-import { useCallback, useMemo } from "react";
+} from '@/components/ui/pagination';
+import { useIsMobile } from '@/hooks/use-mobile';
+import useParams from '@/hooks/use-params';
+import { useCallback, useMemo } from 'react';
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
 }
 
-type PaginationItemType = { type: "page"; value: number } | { type: "ellipsis"; value: string };
+type PaginationItemType =
+  | { type: 'page'; value: number }
+  | { type: 'ellipsis'; value: string };
 
-function shouldShowPreviousButton(isFirstPage: boolean, isMobile: boolean): boolean {
+function shouldShowPreviousButton(
+  isFirstPage: boolean,
+  isMobile: boolean,
+): boolean {
   return !isFirstPage && !isMobile;
 }
 
@@ -28,7 +33,11 @@ function shouldShowNextButton(isLastPage: boolean, isMobile: boolean): boolean {
   return !isLastPage && !isMobile;
 }
 
-function buildPaginationItems(currentPage: number, totalPageCount: number, isMobile: boolean): PaginationItemType[] {
+function buildPaginationItems(
+  currentPage: number,
+  totalPageCount: number,
+  isMobile: boolean,
+): PaginationItemType[] {
   const items: PaginationItemType[] = [];
   const maxVisible = isMobile ? 3 : 5;
   const halfVisible = Math.floor(maxVisible / 2);
@@ -43,21 +52,29 @@ function buildPaginationItems(currentPage: number, totalPageCount: number, isMob
     startPage = Math.max(1, totalPageCount - maxVisible + 1);
   }
 
-  if (startPage > 1) items.push({ type: "page", value: 1 });
-  if (startPage > 2) items.push({ type: "ellipsis", value: "start-ellipsis" });
+  if (startPage > 1) items.push({ type: 'page', value: 1 });
+  if (startPage > 2) items.push({ type: 'ellipsis', value: 'start-ellipsis' });
 
-  for (let i = startPage; i <= endPage; i++) items.push({ type: "page", value: i });
+  for (let i = startPage; i <= endPage; i++)
+    items.push({ type: 'page', value: i });
 
-  if (endPage < totalPageCount - 1) items.push({ type: "ellipsis", value: "end-ellipsis" });
-  if (endPage < totalPageCount) items.push({ type: "page", value: totalPageCount });
+  if (endPage < totalPageCount - 1)
+    items.push({ type: 'ellipsis', value: 'end-ellipsis' });
+  if (endPage < totalPageCount)
+    items.push({ type: 'page', value: totalPageCount });
 
   return items;
 }
 
-function renderPaginationItem(item: PaginationItemType, index: number, currentPage: number, onPageChange: (page: number) => void) {
+function renderPaginationItem(
+  item: PaginationItemType,
+  index: number,
+  currentPage: number,
+  onPageChange: (page: number) => void,
+) {
   const key = `${item.type}-${item.value}-${index}`;
 
-  if (item.type === "ellipsis") {
+  if (item.type === 'ellipsis') {
     return (
       <PaginationItem key={key}>
         <PaginationEllipsis />
@@ -66,7 +83,9 @@ function renderPaginationItem(item: PaginationItemType, index: number, currentPa
   }
 
   const isActive = item.value === currentPage;
-  const linkClassName = isActive ? "hover:bg-black/70 bg-black text-white hover:text-white" : "hover:bg-black hover:text-white";
+  const linkClassName = isActive
+    ? 'hover:bg-black/70 bg-black text-white hover:text-white'
+    : 'hover:bg-black hover:text-white';
 
   return (
     <PaginationItem key={key}>
@@ -74,7 +93,7 @@ function renderPaginationItem(item: PaginationItemType, index: number, currentPa
         onClick={() => onPageChange(item.value)}
         className={linkClassName}
         isActive={isActive}
-        aria-current={isActive ? "page" : undefined}
+        aria-current={isActive ? 'page' : undefined}
       >
         {item.value}
       </PaginationLink>
@@ -82,7 +101,10 @@ function renderPaginationItem(item: PaginationItemType, index: number, currentPa
   );
 }
 
-export default function AppPagination({ currentPage, totalPages }: PaginationProps) {
+export default function AppPagination({
+  currentPage,
+  totalPages,
+}: PaginationProps) {
   const isMobile = useIsMobile();
   const { setParams } = useParams();
 
@@ -90,20 +112,28 @@ export default function AppPagination({ currentPage, totalPages }: PaginationPro
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === actualTotalPages;
 
-  const navigateToPage = useCallback((page: number) => setParams({ halaman: page }), [setParams]);
+  const navigateToPage = useCallback(
+    (page: number) => setParams({ halaman: page }),
+    [setParams],
+  );
 
   const goToNextPage = useCallback(() => {
     return navigateToPage(Math.min(currentPage + 1, actualTotalPages));
   }, [navigateToPage, currentPage, actualTotalPages]);
 
-  const goToPreviousPage = useCallback(() => navigateToPage(Math.max(currentPage - 1, 1)), [navigateToPage, currentPage]);
+  const goToPreviousPage = useCallback(
+    () => navigateToPage(Math.max(currentPage - 1, 1)),
+    [navigateToPage, currentPage],
+  );
 
   const paginationItemsToRender = useMemo(() => {
     return buildPaginationItems(currentPage, actualTotalPages, isMobile);
   }, [currentPage, actualTotalPages, isMobile]);
 
   const renderedPaginationLinks = useMemo(() => {
-    return paginationItemsToRender.map((item, index) => renderPaginationItem(item, index, currentPage, navigateToPage));
+    return paginationItemsToRender.map((item, index) =>
+      renderPaginationItem(item, index, currentPage, navigateToPage),
+    );
   }, [paginationItemsToRender, currentPage, navigateToPage]);
 
   if (actualTotalPages <= 1) return null;
@@ -113,7 +143,11 @@ export default function AppPagination({ currentPage, totalPages }: PaginationPro
       <PaginationContent className="gap-1 sm:gap-2">
         {shouldShowPreviousButton(isFirstPage, isMobile) && (
           <PaginationItem>
-            <PaginationPrevious onClick={goToPreviousPage} className="hover:bg-black hover:text-white" aria-disabled={isFirstPage} />
+            <PaginationPrevious
+              onClick={goToPreviousPage}
+              className="hover:bg-black hover:text-white"
+              aria-disabled={isFirstPage}
+            />
           </PaginationItem>
         )}
 
@@ -121,7 +155,11 @@ export default function AppPagination({ currentPage, totalPages }: PaginationPro
 
         {shouldShowNextButton(isLastPage, isMobile) && (
           <PaginationItem>
-            <PaginationNext onClick={goToNextPage} className="hover:bg-black hover:text-white" aria-disabled={isLastPage} />
+            <PaginationNext
+              onClick={goToNextPage}
+              className="hover:bg-black hover:text-white"
+              aria-disabled={isLastPage}
+            />
           </PaginationItem>
         )}
       </PaginationContent>
@@ -131,7 +169,7 @@ export default function AppPagination({ currentPage, totalPages }: PaginationPro
 
 export function SkeletonPagination() {
   return (
-    <Pagination className="select-none animate-pulse">
+    <Pagination className="animate-pulse select-none">
       <PaginationContent className="gap-1 sm:gap-2">
         {/* Previous Button Skeleton */}
         <PaginationItem>

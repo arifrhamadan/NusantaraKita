@@ -1,4 +1,4 @@
-import type { IconType } from "react-icons/lib";
+import type { IconType } from 'react-icons/lib';
 
 export type CardItemData = {
   icon: IconType;
@@ -12,13 +12,16 @@ export interface CardItemProps {
 
 export const CardItem: React.FC<CardItemProps> = ({ items }) => {
   return (
-    <div className="border border-gray-300 rounded-xl p-4 pl-6 relative flex flex-col gap-2 bg-white shadow-sm overflow-hidden">
-      <div className="absolute w-1.5 h-full bg-primary top-0 left-0" />
+    <div className="relative flex flex-col gap-2 overflow-hidden rounded-xl border border-gray-300 bg-white p-4 pl-6 shadow-sm">
+      <div className="bg-primary absolute top-0 left-0 h-full w-1.5" />
       {items.map((item, index) => (
-        <div key={index} className="flex items-center text-[#4A4A4A] gap-2">
+        <div
+          key={index}
+          className="flex items-center gap-2 text-[#4A4A4A]"
+        >
           <item.icon />
           <span className="font-medium">
-            {item.title ? `${item.title}: ` : ""} {item.value}
+            {item.title ? `${item.title}: ` : ''} {item.value}
           </span>
         </div>
       ))}
