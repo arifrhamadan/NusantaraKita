@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
-  check-lint-build:
+  check-lint-format-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,6 +26,11 @@ jobs:
         run: |
           cd docs
           npm run lint
+
+      - name: Checking prettier
+        run: |
+          cd docs
+          npm run format:check
 
       - name: Build React app
         run: |
